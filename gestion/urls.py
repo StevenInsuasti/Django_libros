@@ -20,20 +20,18 @@ urlpatterns = [
     path('autores/generica/eliminar/<int:pk>/', views.AutorDeleteView.as_view(), name='autor_delete_generica'),
 
     # ----------------------------------------------------------
-    # CRUD LIBRO - Vistas por función (Compañero)
+    # CRUD LIBRO - Vistas por función (Sebastián)
     # ----------------------------------------------------------
-    # TODO: compañero agrega aquí sus 4 URLs de función
-    # path('libros/', views.lista_libros, name='lista_libros'),
-    # path('libros/crear/', views.crear_libro, name='crear_libro'),
-    # path('libros/editar/<int:pk>/', views.editar_libro, name='editar_libro'),
-    # path('libros/eliminar/<int:pk>/', views.eliminar_libro, name='eliminar_libro'),
+    path('libros/', views.lista_libros, name='lista_libros'),
+    path('libros/crear/', views.crear_libro, name='crear_libro'),
+    path('libros/editar/<int:pk>/', views.editar_libro, name='editar_libro'),
+    path('libros/eliminar/<int:pk>/', views.eliminar_libro, name='eliminar_libro'),
 
     # ----------------------------------------------------------
-    # CRUD LIBRO - Vistas genéricas (Compañero)
+    # CRUD LIBRO - Vistas genéricas (Sebastián)
     # ----------------------------------------------------------
-    # TODO: compañero agrega aquí sus 4 URLs genéricas
-    # path('libros/generica/', views.LibroListView.as_view(), name='libro_list_generica'),
-    # path('libros/generica/crear/', views.LibroCreateView.as_view(), name='libro_create_generica'),
-    # path('libros/generica/editar/<int:pk>/', views.LibroUpdateView.as_view(), name='libro_update_generica'),
-    # path('libros/generica/eliminar/<int:pk>/', views.LibroDeleteView.as_view(), name='libro_delete_generica'),
+    path('libros/generica/', views.LibroListView.as_view(), name='libro_list_generica'),
+    path('libros/generica/crear/', views.LibroCreateView.as_view(), name='libro_create_generica'),
+    path('libros/generica/editar/<int:pk>/', views.LibroUpdateView.as_view(), name='libro_update_generica'),
+    path('libros/generica/eliminar/<int:pk>/', views.LibroDeleteView.as_view(), name='libro_delete_generica'),
 ]

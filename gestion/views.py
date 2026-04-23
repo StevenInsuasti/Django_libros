@@ -76,22 +76,70 @@ class AutorDeleteView(DeleteView):
 
 
 # ============================================================
-# CRUD LIBRO - Vistas por función (Compañero)
+# CRUD LIBRO - Vistas por función (Sebastián)
 # ============================================================
 
-# TODO: compañero implementa aquí las vistas por función de Libro
-# def lista_libros(request): ...
-# def crear_libro(request): ...
-# def editar_libro(request, pk): ...
-# def eliminar_libro(request, pk): ...
+def lista_libros(request):
+    libros = Libro.objects.select_related('autor').all()
+    return render(request, 'gestion/lista_libros.html', {'libros': libros})
+
+
+def crear_libro(request):
+    if request.method == 'POST':
+        form = LibroForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_libros')
+    else:
+        form = LibroForm()
+    return render(request, 'gestion/libro_form.html', {'form': form, 'titulo': 'Crear Libro'})
+
+
+def editar_libro(request, pk):
+    libro = get_object_or_404(Libro, pk=pk)
+    if request.method == 'POST':
+        form = LibroForm(request.POST, instance=libro)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_libros')
+    else:
+        form = LibroForm(instance=libro)
+    return render(request, 'gestion/libro_form.html', {'form': form, 'titulo': 'Editar Libro'})
+
+
+def eliminar_libro(request, pk):
+    libro = get_object_or_404(Libro, pk=pk)
+    if request.method == 'POST':
+        libro.delete()
+        return redirect('lista_libros')
+    return render(request, 'gestion/libro_confirm_delete.html', {'libro': libro})
 
 
 # ============================================================
-# CRUD LIBRO - Vistas genéricas (Compañero)
+# CRUD LIBRO - Vistas genéricas (Sebastián)
 # ============================================================
 
-# TODO: compañero implementa aquí las vistas genéricas de Libro
-# class LibroListView(ListView): ...
-# class LibroCreateView(CreateView): ...
-# class LibroUpdateView(UpdateView): ...
-# class LibroDeleteView(DeleteView): ...
+class LibroListView(ListView):
+    model = Libro
+    template_name = 'gestion/libro_list_generica.html'
+    context_object_name = 'libros'
+
+
+class LibroCreateView(CreateView):
+    model = Libro
+    form_class = LibroForm
+    template_name = 'gestion/libro_create_generica.html'
+    success_url = reverse_lazy('libro_list_generica')
+
+
+class LibroUpdateView(UpdateView):
+    model = Libro
+    form_class = LibroForm
+    template_name = 'gestion/libro_update_generica.html'
+    success_url = reverse_lazy('libro_list_generica')
+
+
+class LibroDeleteView(DeleteView):
+    model = Libro
+    template_name = 'gestion/libro_delete_generica.html'
+    success_url = reverse_lazy('libro_list_generica')
