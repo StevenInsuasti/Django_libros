@@ -1,7 +1,39 @@
 {% extends 'gestion/base.html' %}
 {% block titulo %}Libros (Vista Genérica){% endblock %}
 {% block contenido %}
-{# TODO: Compañero implementa este template #}
-<h2>Libros <span class="badge bg-secondary">Vista Genérica</span></h2>
-<p class="text-muted">Template pendiente de implementación por el compañero.</p>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Libros <span class="badge bg-secondary">Vista Genérica</span></h2>
+    <a href="{% url 'libro_create_generica' %}" class="btn btn-primary">+ Agregar Libro</a>
+</div>
+{% if libros %}
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Título</th>
+            <th>Género</th>
+            <th>Fecha Publicación</th>
+            <th>Autor</th>
+            <th>ISBN</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for libro in libros %}
+        <tr>
+            <td>{{ libro.titulo }}</td>
+            <td>{{ libro.genero }}</td>
+            <td>{{ libro.fecha_publicacion }}</td>
+            <td>{{ libro.autor }}</td>
+            <td>{{ libro.isbn }}</td>
+            <td>
+                <a href="{% url 'libro_update_generica' libro.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                <a href="{% url 'libro_delete_generica' libro.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="text-muted">No hay libros registrados aún.</p>
+{% endif %}
 {% endblock %}
