@@ -3,6 +3,9 @@ from . import views
 
 urlpatterns = [
 
+    # Home
+    path('', views.home, name='home'),
+
     # ----------------------------------------------------------
     # CRUD AUTOR - Vistas por función (Steven)
     # ----------------------------------------------------------

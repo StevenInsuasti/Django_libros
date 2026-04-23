@@ -1,8 +1,22 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Count
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Autor, Libro
 from .forms import AutorForm, LibroForm
+
+
+# ============================================================
+# HOME
+# ============================================================
+
+def home(request):
+    total_autores = Autor.objects.count()
+    total_libros = Libro.objects.count()
+    return render(request, 'gestion/home.html', {
+        'total_autores': total_autores,
+        'total_libros': total_libros,
+    })
 
 
 # ============================================================
